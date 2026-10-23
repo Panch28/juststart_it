@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+web/dist/
+server/dist/
+
+# Runtime data (SQLite database, WAL files, uploaded documents)
+server/data/
+server/uploads/
+
+# Local environment files — never commit real secrets
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

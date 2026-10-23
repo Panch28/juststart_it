@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A modern website layout" />
+  <title>My Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────── -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">Brand<span class="accent">.</span></a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="cta-btn" id="nav-cta">Get Started</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── HERO ──────────────────────────────────────── -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <span class="badge">✦ Welcome</span>
+      <h1>Build Something<br /><span class="gradient-text">Incredible</span></h1>
+      <p class="hero-sub">A clean, modern foundation to build your next big idea. Fast, flexible, and beautiful by default.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn btn-primary">Explore Services</a>
+        <a href="#about" class="btn btn-ghost">Learn More →</a>
+      </div>
+    </div>
+    <div class="hero-glow"></div>
+  </section>
+
+  <!-- ─── ABOUT ─────────────────────────────────────── -->
+  <section class="section" id="about">
+    <div class="container two-col">
+      <div class="col-text">
+        <span class="section-label">About Us</span>
+        <h2>Crafted with purpose,<br />built to last.</h2>
+        <p>We combine modern design principles with rock-solid engineering to deliver experiences that users love and businesses rely on.</p>
+        <ul class="check-list">
+          <li>Pixel-perfect design</li>
+          <li>Responsive on all devices</li>
+          <li>Accessible &amp; performant</li>
+        </ul>
+      </div>
+      <div class="col-visual">
+        <div class="visual-card">
+          <div class="stat"><span class="stat-num">99%</span><span class="stat-label">Satisfaction</span></div>
+          <div class="stat"><span class="stat-num">10k+</span><span class="stat-label">Users</span></div>
+          <div class="stat"><span class="stat-num">5★</span><span class="stat-label">Rating</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SERVICES ──────────────────────────────────── -->
+  <section class="section section-alt" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Services</span>
+        <h2>What we offer</h2>
+        <p>Everything you need, nothing you don't.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card" id="card-design">
+          <div class="card-icon">🎨</div>
+          <h3>UI / UX Design</h3>
+          <p>Thoughtful interfaces that delight users and drive conversions.</p>
+        </div>
+        <div class="card" id="card-dev">
+          <div class="card-icon">⚡</div>
+          <h3>Development</h3>
+          <p>Clean, scalable code built with modern tools and best practices.</p>
+        </div>
+        <div class="card" id="card-seo">
+          <div class="card-icon">📈</div>
+          <h3>SEO &amp; Growth</h3>
+          <p>Data-driven strategies to grow your audience and revenue.</p>
+        </div>
+        <div class="card" id="card-support">
+          <div class="card-icon">🛡️</div>
+          <h3>Support</h3>
+          <p>24/7 dedicated support so you're never left in the dark.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ───────────────────────────────────── -->
+  <section class="section" id="contact">
+    <div class="container contact-wrap">
+      <div class="section-header">
+        <span class="section-label">Contact</span>
+        <h2>Let's talk</h2>
+        <p>Have a project in mind? We'd love to hear from you.</p>
+      </div>
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#" class="logo">Brand<span class="accent">.</span></a>
+      <p class="footer-copy">© 2026 Brand. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

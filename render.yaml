@@ -1,0 +1,38 @@
+# Render blueprint — one-service full-stack deployment.
+#
+# This is the recommended host for this app: unlike serverless platforms, a
+# normal web service can keep the SQLite database and uploaded files on disk.
+#
+# Free plan note: the filesystem is ephemeral, so the database is re-created and
+# re-seeded from `server/src/db/seed.ts` on every restart. That is fine for a
+# demo (visitors always see complete sample data) but nothing persists between
+# restarts. Attach a persistent disk and set DATA_DIR / UPLOAD_DIR to keep data.
+
+services:
+  - type: web
+    name: research-innovation-hub
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm run seed && npm start
+    healthCheckPath: /api/health
+    envVars:
+      # node:sqlite requires Node >= 22.5 — pin an exact version so a future
+      # runtime bump cannot silently remove it.
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: NODE_ENV
+        value: production
+      # Render generates a strong value; never reuse the dev fallback in production.
+      - key: SESSION_SECRET
+        generateValue: true
+      # Uncomment together with a persistent disk (paid plans) to keep data:
+      # - key: DATA_DIR
+      #   value: /var/data
+      # - key: UPLOAD_DIR
+      #   value: /var/data/uploads
+    # disk:
+    #   name: rih-data
+    #   mountPath: /var/data
+    #   sizeGB: 1
