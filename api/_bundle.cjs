@@ -39542,7 +39542,7 @@ function createApp() {
   app2.use("/api/departments", departmentsRouter);
   app2.use("/api/settings", settingsRouter);
   app2.use("/api/search", searchRouter);
-  const webDist = (0, import_node_path3.join)(process.cwd(), "..", "web", "dist");
+  const webDist = (0, import_node_path3.join)(process.cwd(), "..", "dist");
   if (!IS_SERVERLESS2 && (0, import_node_fs3.existsSync)(webDist)) {
     app2.use(import_express15.default.static(webDist));
     app2.get(/^\/(?!api).*/, (_req, res) => res.sendFile((0, import_node_path3.join)(webDist, "index.html")));

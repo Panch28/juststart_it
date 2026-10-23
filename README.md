@@ -125,11 +125,11 @@ npm run dev:web    # frontend only
 ### Production-style build
 
 ```bash
-npm run build      # builds web/dist
-npm start          # API serves web/dist statically on http://localhost:4000
+npm run build      # builds dist/
+npm start          # API serves dist/ statically on http://localhost:4000
 ```
 
-When `web/dist` exists the API serves the single-page app (with history fallback), so
+When `dist/` exists the API serves the single-page app (with history fallback), so
 the whole system runs from **http://localhost:4000**.
 
 ### Other scripts

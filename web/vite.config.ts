@@ -14,7 +14,10 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'dist',
+    // Emit to the repository root so the output directory matches the default
+    // expected by static hosts (Vercel's Vite preset uses `dist`).
+    outDir: '../dist',
+    emptyOutDir: true,
     sourcemap: false,
     chunkSizeWarningLimit: 700,
     rollupOptions: {

@@ -70,7 +70,7 @@ export function createApp(): express.Express {
 
   // Serve the built frontend when it exists (single-service production mode).
   // On Vercel the static site is served by the platform, so this is skipped.
-  const webDist = join(process.cwd(), '..', 'web', 'dist');
+  const webDist = join(process.cwd(), '..', 'dist');
   if (!IS_SERVERLESS && existsSync(webDist)) {
     app.use(express.static(webDist));
     app.get(/^\/(?!api).*/, (_req, res) => res.sendFile(join(webDist, 'index.html')));

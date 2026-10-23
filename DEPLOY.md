@@ -102,7 +102,7 @@ git commit -m "describe the change"
 git push
 ```
 
-`.gitignore` excludes `node_modules/`, `web/dist/`, `server/data/`,
+`.gitignore` excludes `node_modules/`, `dist/`, `server/data/`,
 `server/uploads/` and `.env`, so no secrets or generated data are published.
 
 ---
