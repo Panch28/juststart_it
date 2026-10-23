@@ -18,10 +18,10 @@ services:
     startCommand: npm run seed && npm start
     healthCheckPath: /api/health
     envVars:
-      # node:sqlite requires Node >= 22.5 — pin an exact version so a future
-      # runtime bump cannot silently remove it.
+      # node:sqlite is built into Node. 22.13+ ships it unflagged; pin an exact
+      # version so a future runtime bump cannot silently change behaviour.
       - key: NODE_VERSION
-        value: 22.14.0
+        value: 24.14.0
       - key: NODE_ENV
         value: production
       # Render generates a strong value; never reuse the dev fallback in production.

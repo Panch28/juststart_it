@@ -1,26 +1,76 @@
 import { DatabaseSync } from 'node:sqlite';
-import { readFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+/**
+ * Injected by `scripts/build-api.mjs` when compiling the serverless bundle.
+ * Locally this identifier is never defined, so `typeof` below evaluates to
+ * `'undefined'` and the schema is read from disk as usual.
+ */
+declare const __EMBEDDED_SCHEMA__: string | undefined;
 
-export const SERVER_ROOT = resolve(__dirname, '..', '..');
+const MODULE_DIR = (() => {
+  try {
+    return dirname(fileURLToPath(import.meta.url));
+  } catch {
+    // The CJS serverless bundle has no import.meta.url; fall back to the cwd.
+    return process.cwd();
+  }
+})();
+
+/**
+ * True when running inside a serverless platform (Vercel). Those environments
+ * only allow writes under /tmp and give every instance its own filesystem, so
+ * the database lives in memory and uploads go to /tmp.
+ */
+const IS_SERVERLESS = process.env.VERCEL === '1' || process.env.DB_PATH === ':memory:';
+
+export const SERVER_ROOT = resolve(MODULE_DIR, '..', '..');
 export const DATA_DIR = process.env.DATA_DIR ? resolve(process.env.DATA_DIR) : join(SERVER_ROOT, 'data');
-export const UPLOAD_DIR = process.env.UPLOAD_DIR ? resolve(process.env.UPLOAD_DIR) : join(SERVER_ROOT, 'uploads');
-export const DB_PATH = process.env.DB_PATH ? resolve(process.env.DB_PATH) : join(DATA_DIR, 'rih.sqlite');
+export const UPLOAD_DIR = process.env.UPLOAD_DIR
+  ? resolve(process.env.UPLOAD_DIR)
+  : IS_SERVERLESS
+    ? join('/tmp', 'uploads')
+    : join(SERVER_ROOT, 'uploads');
+export const DB_PATH = IS_SERVERLESS
+  ? ':memory:'
+  : process.env.DB_PATH
+    ? resolve(process.env.DB_PATH)
+    : join(DATA_DIR, 'rih.sqlite');
 
-mkdirSync(DATA_DIR, { recursive: true });
+if (!IS_SERVERLESS) mkdirSync(DATA_DIR, { recursive: true });
+// /tmp is writable on serverless platforms, so this is safe there too.
 mkdirSync(UPLOAD_DIR, { recursive: true });
 
 export const db = new DatabaseSync(DB_PATH);
-db.exec('PRAGMA journal_mode = WAL;');
+if (!IS_SERVERLESS) {
+  db.exec('PRAGMA journal_mode = WAL;');
+}
 db.exec('PRAGMA foreign_keys = ON;');
 
-/** Applies the schema. Safe to call repeatedly (all statements are IF NOT EXISTS). */
+/**
+ * Applies the schema. Safe to call repeatedly (all statements are IF NOT EXISTS).
+ *
+ * In the serverless bundle the SQL is embedded at build time, because a bundled
+ * function cannot rely on `schema.sql` being present next to it on disk.
+ */
 export function applySchema(): void {
-  const schema = readFileSync(join(__dirname, 'schema.sql'), 'utf8');
-  db.exec(schema);
+  if (typeof __EMBEDDED_SCHEMA__ !== 'undefined') {
+    db.exec(__EMBEDDED_SCHEMA__);
+    return;
+  }
+
+  const candidates = [
+    join(MODULE_DIR, 'schema.sql'),
+    join(process.cwd(), 'server', 'src', 'db', 'schema.sql'),
+    join(process.cwd(), '..', 'server', 'src', 'db', 'schema.sql'),
+  ];
+  const schemaPath = candidates.find((path) => existsSync(path));
+  if (!schemaPath) {
+    throw new Error(`Unable to locate schema.sql (looked in: ${candidates.join(', ')})`);
+  }
+  db.exec(readFileSync(schemaPath, 'utf8'));
 }
 
 export function nowIso(): string {

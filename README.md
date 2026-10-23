@@ -437,10 +437,17 @@ These are intentionally out of scope and clearly signposted in the UI:
 
 See **[DEPLOY.md](DEPLOY.md)** for a step-by-step guide.
 
-Short version: this is a full-stack app with an on-disk SQLite database, so it needs a host
-that allows persistent (or at least writable) storage. A `render.yaml` blueprint deploys the
-whole thing as one service; Vercel can host the frontend but not the database-backed API.
-`DEPLOY.md` explains the constraint, both options, and how to create a temporary public link.
+Two supported paths:
+
+- **Vercel** (single project, one URL). `vercel.json` builds the frontend and a
+  serverless bundle of the API. Because Vercel has no persistent disk, the app
+  switches to an in-memory SQLite database that is seeded per instance: reads
+  and the full UI work, but writes are not durable. Good for sharing a demo.
+- **Render / any Node host** (`render.yaml`). The API runs as a normal process
+  with the database on disk, so data persists.
+
+`DEPLOY.md` explains the trade-off, both setups, and how to create a temporary
+public link.
 
 ---
 

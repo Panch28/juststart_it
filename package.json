@@ -12,15 +12,18 @@
     "dev:api": "npm --workspace server run dev",
     "dev:web": "npm --workspace web run dev",
     "build": "npm --workspace web run build",
+    "build:api": "node scripts/build-api.mjs",
+    "build:all": "npm run build && npm run build:api",
     "start": "npm --workspace server run start",
     "seed": "npm --workspace server run seed",
     "reset-db": "npm --workspace server run reset",
     "typecheck": "npm --workspace server run typecheck && npm --workspace web run typecheck"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.28.2"
   },
   "engines": {
-    "node": ">=22.5.0"
+    "node": "24.x"
   }
 }

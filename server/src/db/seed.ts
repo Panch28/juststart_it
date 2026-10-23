@@ -6,9 +6,10 @@
  *   npm run seed          – create the schema and insert demo data (idempotent)
  *   npm run reset-db      – delete the database file and re-seed from scratch
  */
-import { db, applySchema, DB_PATH, nowIso, today, addDays } from './connection.js';
+import { db, applySchema, DB_PATH, nowIso, today, addDays, UPLOAD_DIR } from './connection.js';
 import { hashPassword } from '../lib/crypto.js';
 import { generateDeadlineNotifications } from '../lib/notifications.js';
+import { writeSampleDocument } from '../lib/sampleFiles.js';
 
 const RESET = process.argv.includes('--reset');
 const DEMO_PASSWORD = 'demo1234';
@@ -1617,11 +1618,20 @@ const documentDefs: Array<{
   { name: 'RP-1008 Equipment Quotation', category: 'OTHER', relatedType: 'PROJECT', relatedId: projectIds['RP-1008'], uploadedBy: researchers[6], offset: -10, type: 'XLSX', size: 88_210 },
 ];
 for (const d of documentDefs) {
+  const storagePath = `seed/${d.name.toLowerCase().replace(/[^a-z0-9.]+/g, '-')}`;
+  // Write a genuine file so the demo library never shows a dead download link,
+  // and record its real size and checksum instead of the placeholder values.
+  const file = writeSampleDocument(UPLOAD_DIR, {
+    storagePath,
+    title: d.name,
+    fileType: d.type,
+    targetSize: d.size,
+  });
   db.prepare(
     `INSERT INTO documents
       (name, description, category, related_type, related_id, uploaded_by, upload_date,
        file_type, file_size, storage_path, checksum, status, version, created_at)
-     VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, '', 'ACTIVE', 1, ?)`,
+     VALUES (?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE', 1, ?)`,
   ).run(
     d.name,
     d.category,
@@ -1630,8 +1640,9 @@ for (const d of documentDefs) {
     d.uploadedBy,
     iso(d.offset),
     d.type,
-    d.size,
-    `seed/${d.name.toLowerCase().replace(/[^a-z0-9.]+/g, '-')}`,
+    file.size,
+    storagePath,
+    file.checksum,
     nowIso(),
   );
 }
