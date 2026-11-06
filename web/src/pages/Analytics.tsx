@@ -575,9 +575,9 @@ export default function Analytics() {
                       <YAxis allowDecimals={false} tick={AXIS_TICK} tickLine={false} axisLine={false} />
                       <Tooltip contentStyle={TOOLTIP_STYLE} />
                       <Legend wrapperStyle={{ fontSize: 12 }} />
-                      <Line type="monotone" dataKey="Submissions" stroke="#3366f2" strokeWidth={2} dot={false} />
-                      <Line type="monotone" dataKey="Approved" stroke="#10b981" strokeWidth={2} dot={false} />
-                      <Line type="monotone" dataKey="Rejected" stroke="#ef4444" strokeWidth={2} dot={false} />
+                      <Line type="linear" dataKey="Submissions" stroke="#3366f2" strokeWidth={2} dot />
+                      <Line type="linear" dataKey="Approved" stroke="#10b981" strokeWidth={2} dot />
+                      <Line type="linear" dataKey="Rejected" stroke="#ef4444" strokeWidth={2} dot />
                     </LineChart>
                   </ResponsiveContainer>
                 )}
@@ -639,14 +639,23 @@ export default function Analytics() {
 
             <Card className="xl:col-span-2">
               <CardHeader title="Funding by source" description="Requested, approved and received amounts" />
-              <CardBody className="h-64">
+              <CardBody className="h-80">
                 {fundingData.length === 0 ? (
                   <EmptyState title="No funding records" />
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={fundingData} margin={{ top: 8, right: 12, bottom: 0, left: -6 }}>
+                    <BarChart data={fundingData} margin={{ top: 8, right: 12, bottom: 60, left: -6 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#eceff5" vertical={false} />
-                      <XAxis dataKey="name" tick={AXIS_TICK} tickLine={false} axisLine={{ stroke: '#d5dce8' }} />
+                      <XAxis
+                        dataKey="name"
+                        tick={AXIS_TICK}
+                        tickLine={false}
+                        axisLine={{ stroke: '#d5dce8' }}
+                        angle={-45}
+                        textAnchor="end"
+                        height={70}
+                        interval={0}
+                      />
                       <YAxis
                         tick={AXIS_TICK}
                         tickLine={false}
@@ -675,37 +684,15 @@ export default function Analytics() {
                 <EmptyState title="No yearly history" description="No submissions match the current filters." />
               ) : (
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={yearlyTrend} margin={{ top: 8, right: 12, bottom: 0, left: -18 }}>
-                    <defs>
-                      <linearGradient id="analyticsSubmissions" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#3366f2" stopOpacity={0.28} />
-                        <stop offset="100%" stopColor="#3366f2" stopOpacity={0.02} />
-                      </linearGradient>
-                      <linearGradient id="analyticsApproved" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#10b981" stopOpacity={0.28} />
-                        <stop offset="100%" stopColor="#10b981" stopOpacity={0.02} />
-                      </linearGradient>
-                    </defs>
+                  <BarChart data={yearlyTrend} margin={{ top: 8, right: 12, bottom: 0, left: -18 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#eceff5" vertical={false} />
                     <XAxis dataKey="period" tick={AXIS_TICK} tickLine={false} axisLine={{ stroke: '#d5dce8' }} />
                     <YAxis allowDecimals={false} tick={AXIS_TICK} tickLine={false} axisLine={false} />
                     <Tooltip contentStyle={TOOLTIP_STYLE} />
                     <Legend wrapperStyle={{ fontSize: 12 }} />
-                    <Area
-                      type="monotone"
-                      dataKey="Submissions"
-                      stroke="#3366f2"
-                      fill="url(#analyticsSubmissions)"
-                      strokeWidth={2}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="Approved"
-                      stroke="#10b981"
-                      fill="url(#analyticsApproved)"
-                      strokeWidth={2}
-                    />
-                  </AreaChart>
+                    <Bar dataKey="Submissions" fill="#3366f2" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                    <Bar dataKey="Approved" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                  </BarChart>
                 </ResponsiveContainer>
               )}
             </CardBody>

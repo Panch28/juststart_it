@@ -1,0 +1,261 @@
+{
+  "generated_for_date": "2026-11-05",
+  "note": "Dashboard numbers must match these when computed live from the loaded data. Dates are relative to the generation date; regenerate with the same SEED_TODAY to compare.",
+  "totals": {
+    "users": 25,
+    "projects": 28,
+    "ipr_records": 14,
+    "approvals": 46,
+    "startups": 9,
+    "funding_opportunities": 8,
+    "funding_records": 15,
+    "notifications": 60,
+    "audit_entries": 207
+  },
+  "projects_by_status": {
+    "Completed": 5,
+    "Active": 7,
+    "Under Review": 5,
+    "Submitted": 3,
+    "Approved": 3,
+    "Draft": 3,
+    "Rejected": 2
+  },
+  "completion_rate_pct": 17.9,
+  "output_by_department": {
+    "ENVS": {
+      "projects": 4,
+      "approved_or_beyond": 2,
+      "completed": 1
+    },
+    "BIOT": {
+      "projects": 4,
+      "approved_or_beyond": 3,
+      "completed": 1
+    },
+    "CSAI": {
+      "projects": 4,
+      "approved_or_beyond": 2,
+      "completed": 0
+    },
+    "MATS": {
+      "projects": 4,
+      "approved_or_beyond": 2,
+      "completed": 1
+    },
+    "REEN": {
+      "projects": 4,
+      "approved_or_beyond": 3,
+      "completed": 1
+    },
+    "AGRI": {
+      "projects": 4,
+      "approved_or_beyond": 2,
+      "completed": 1
+    },
+    "HLTH": {
+      "projects": 4,
+      "approved_or_beyond": 1,
+      "completed": 0
+    }
+  },
+  "approvals": {
+    "total": 46,
+    "decided": 33,
+    "pending": 13,
+    "overdue_over_14_days": 3,
+    "avg_processing_days": 13.3,
+    "median_processing_days": 12,
+    "n_for_average": 33,
+    "pending_cases": [
+      {
+        "code": "AR-2034",
+        "subject": "PROJECT",
+        "stage": "Ethics & compliance review",
+        "days_pending": 25
+      },
+      {
+        "code": "AR-2035",
+        "subject": "PROJECT",
+        "stage": "Ethics & compliance review",
+        "days_pending": 19
+      },
+      {
+        "code": "AR-2036",
+        "subject": "IPR",
+        "stage": "IPR officer evaluation",
+        "days_pending": 16
+      },
+      {
+        "code": "AR-2037",
+        "subject": "PROJECT",
+        "stage": "Departmental scrutiny",
+        "days_pending": 12
+      },
+      {
+        "code": "AR-2038",
+        "subject": "STARTUP",
+        "stage": "Incubation committee",
+        "days_pending": 12
+      },
+      {
+        "code": "AR-2039",
+        "subject": "IPR",
+        "stage": "Filing authorisation",
+        "days_pending": 11
+      },
+      {
+        "code": "AR-2040",
+        "subject": "PROJECT",
+        "stage": "Funding assessment",
+        "days_pending": 9
+      },
+      {
+        "code": "AR-2041",
+        "subject": "IPR",
+        "stage": "Technical review committee",
+        "days_pending": 8
+      },
+      {
+        "code": "AR-2042",
+        "subject": "PROJECT",
+        "stage": "Departmental scrutiny",
+        "days_pending": 6
+      },
+      {
+        "code": "AR-2043",
+        "subject": "PROJECT",
+        "stage": "Departmental scrutiny",
+        "days_pending": 5
+      },
+      {
+        "code": "AR-2044",
+        "subject": "PROJECT",
+        "stage": "Departmental scrutiny",
+        "days_pending": 4
+      },
+      {
+        "code": "AR-2045",
+        "subject": "STARTUP",
+        "stage": "Eligibility screening",
+        "days_pending": 3
+      },
+      {
+        "code": "AR-2046",
+        "subject": "PROJECT",
+        "stage": "Departmental scrutiny",
+        "days_pending": 2
+      }
+    ]
+  },
+  "ipr_by_status": {
+    "Granted": 2,
+    "Filed": 3,
+    "Under Examination": 2,
+    "Draft": 3,
+    "Approved for Filing": 2,
+    "Under Evaluation": 2
+  },
+  "ipr_by_type": {
+    "Patent": 9,
+    "Other": 1,
+    "Copyright": 2,
+    "Trademark": 2
+  },
+  "ipr_overdue_deadlines": [
+    "IPR-514"
+  ],
+  "startups_by_stage": {
+    "Growth": 1,
+    "Seed": 2,
+    "Incubation": 3,
+    "Under Review": 1,
+    "Applied": 1,
+    "Graduated": 1
+  },
+  "startup_progress": [
+    {
+      "code": "SU-101",
+      "name": "AirWise Sensing",
+      "stage": "Growth",
+      "milestones_done": 4,
+      "milestones_total": 5,
+      "progress_pct": 80
+    },
+    {
+      "code": "SU-102",
+      "name": "DenguDx Labs",
+      "stage": "Seed",
+      "milestones_done": 3,
+      "milestones_total": 5,
+      "progress_pct": 60
+    },
+    {
+      "code": "SU-103",
+      "name": "FibreLoop Composites",
+      "stage": "Incubation",
+      "milestones_done": 1,
+      "milestones_total": 4,
+      "progress_pct": 25
+    },
+    {
+      "code": "SU-104",
+      "name": "TBTrack Care",
+      "stage": "Incubation",
+      "milestones_done": 2,
+      "milestones_total": 4,
+      "progress_pct": 50
+    },
+    {
+      "code": "SU-105",
+      "name": "LeafLens AI",
+      "stage": "Incubation",
+      "milestones_done": 2,
+      "milestones_total": 4,
+      "progress_pct": 50
+    },
+    {
+      "code": "SU-106",
+      "name": "BioGasMix Energy",
+      "stage": "Seed",
+      "milestones_done": 3,
+      "milestones_total": 5,
+      "progress_pct": 60
+    },
+    {
+      "code": "SU-107",
+      "name": "RootWell Agritech",
+      "stage": "Under Review",
+      "milestones_done": 0,
+      "milestones_total": 3,
+      "progress_pct": 0
+    },
+    {
+      "code": "SU-108",
+      "name": "NovaCell Solar",
+      "stage": "Applied",
+      "milestones_done": 0,
+      "milestones_total": 3,
+      "progress_pct": 0
+    },
+    {
+      "code": "SU-109",
+      "name": "ColourLeaf Naturals",
+      "stage": "Graduated",
+      "milestones_done": 5,
+      "milestones_total": 5,
+      "progress_pct": 100
+    }
+  ],
+  "funding_totals_inr": {
+    "requested": 64000000,
+    "approved": 46800000,
+    "received": 30900000
+  },
+  "funding_applications_by_status": {
+    "Approved": 4,
+    "Received": 8,
+    "Rejected": 1,
+    "Applied": 2
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "_readme": "Hand-curated funding schemes. NO deadlines are filled in on purpose: stale deadlines make the product look fake. Every entry must be checked against source_url before demo day. Agencies and scheme names change (e.g. SERB was merged into ANRF in 2024), so set verified_on yourself after checking.",
+  "opportunities": [
+    {
+      "title": "Startup India Seed Fund Scheme (SISFS)",
+      "agency": "DPIIT, Government of India",
+      "type": "Startup funding (via incubators)",
+      "audience": "Early-stage startups through DPIIT-approved incubators",
+      "source_url": "https://www.startupindia.gov.in",
+      "deadline": null,
+      "amount_note": "Check current scheme guidelines for ceilings",
+      "verified_on": null
+    },
+    {
+      "title": "BIG - Biotechnology Ignition Grant",
+      "agency": "BIRAC (DBT)",
+      "type": "Startup / early-stage grant",
+      "audience": "Biotech startups and entrepreneurs",
+      "source_url": "https://birac.nic.in",
+      "deadline": null,
+      "amount_note": "Check current call text",
+      "verified_on": null
+    },
+    {
+      "title": "NIDHI-PRAYAS",
+      "agency": "DST",
+      "type": "Prototype grant",
+      "audience": "Innovators / student entrepreneurs building prototypes",
+      "source_url": "https://www.nidhi.dst.gov.in",
+      "deadline": null,
+      "amount_note": "Check current call text",
+      "verified_on": null
+    },
+    {
+      "title": "NIDHI-EIR (Entrepreneur in Residence)",
+      "agency": "DST",
+      "type": "Fellowship / stipend",
+      "audience": "Graduates aspiring to start a venture",
+      "source_url": "https://www.nidhi.dst.gov.in",
+      "deadline": null,
+      "amount_note": "Check current call text",
+      "verified_on": null
+    },
+    {
+      "title": "Core Research Grant / ANRF research programmes",
+      "agency": "ANRF (successor body to SERB)",
+      "type": "Research grant",
+      "audience": "Faculty and researchers at Indian institutions",
+      "source_url": "https://anrfonline.in",
+      "deadline": null,
+      "amount_note": "Verify scheme names; they have been renamed/restructured",
+      "verified_on": null
+    },
+    {
+      "title": "Technology Development Board (TDB) funding",
+      "agency": "TDB, DST",
+      "type": "Commercialisation loan / equity support",
+      "audience": "Companies commercialising indigenous technology",
+      "source_url": "https://tdb.gov.in",
+      "deadline": null,
+      "amount_note": "Check current terms",
+      "verified_on": null
+    },
+    {
+      "title": "ICMR Extramural Research Grants",
+      "agency": "ICMR",
+      "type": "Research grant",
+      "audience": "Biomedical / health researchers",
+      "source_url": "https://www.icmr.gov.in",
+      "deadline": null,
+      "amount_note": "Check current calls",
+      "verified_on": null
+    },
+    {
+      "title": "Karnataka Startup / Elevate programmes",
+      "agency": "Karnataka Innovation and Technology Society (KITS)",
+      "type": "State startup grant",
+      "audience": "Karnataka-based startups",
+      "source_url": "https://www.missionstartupkarnataka.org",
+      "deadline": null,
+      "amount_note": "Verify the programme is still running and its current name",
+      "verified_on": null
+    }
+  ]
+}

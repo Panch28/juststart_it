@@ -92,16 +92,30 @@ analyticsRouter.get(
       : 0;
 
     // 4. Pending and overdue approval cases --------------------------------
-    const pendingCases = db
-      .prepare(
-        `SELECT a.id, a.request_code, a.subject_type, a.current_stage, a.submitted_at, a.priority,
-                CAST(julianday('now') - julianday(a.submitted_at) AS INTEGER) AS days_pending,
-                u.full_name AS reviewer_name
-           FROM approval_requests a LEFT JOIN users u ON u.id = a.assigned_reviewer_id
-          WHERE a.status IN ('PENDING','IN_REVIEW')
-          ORDER BY days_pending DESC`,
-      )
-      .all() as any[];
+    let pendingCases: any[] = [];
+    if (can(req.user, 'approval.view.all') || can(req.user, 'approval.review')) {
+      pendingCases = db
+        .prepare(
+          `SELECT a.id, a.request_code, a.subject_type, a.current_stage, a.submitted_at, a.priority,
+                  CAST(julianday('now') - julianday(a.submitted_at) AS INTEGER) AS days_pending,
+                  u.full_name AS reviewer_name
+             FROM approval_requests a LEFT JOIN users u ON u.id = a.assigned_reviewer_id
+             WHERE a.status IN ('PENDING','IN_REVIEW')
+             ORDER BY days_pending DESC`,
+        )
+        .all() as any[];
+    } else if (req.user) {
+      pendingCases = db
+        .prepare(
+          `SELECT a.id, a.request_code, a.subject_type, a.current_stage, a.submitted_at, a.priority,
+                  CAST(julianday('now') - julianday(a.submitted_at) AS INTEGER) AS days_pending,
+                  u.full_name AS reviewer_name
+             FROM approval_requests a LEFT JOIN users u ON u.id = a.assigned_reviewer_id
+             WHERE a.status IN ('PENDING','IN_REVIEW') AND a.assigned_reviewer_id = ?
+             ORDER BY days_pending DESC`,
+        )
+        .all(req.user.id) as any[];
+    }
     const overdueCases = pendingCases.filter((c) => c.days_pending > 14);
 
     // 5. IPR portfolio by status and type -----------------------------------
@@ -127,7 +141,7 @@ analyticsRouter.get(
     const startupByStage = db
       .prepare(`SELECT stage AS name, COUNT(*) AS value FROM startups GROUP BY stage ORDER BY value DESC`)
       .all() as any[];
-    const startupProgress = db
+    const startupProgressRaw = db
       .prepare(
         `SELECT s.id, s.startup_code, s.name, s.stage, s.progress,
                 (SELECT COUNT(*) FROM startup_milestones m WHERE m.startup_id = s.id) AS milestones,
@@ -135,6 +149,12 @@ analyticsRouter.get(
            FROM startups s ORDER BY s.created_at DESC`,
       )
       .all() as any[];
+    const startupProgress = startupProgressRaw.map((s: any) => {
+      const milestones = Number(s.milestones) || 0;
+      const milestones_done = Number(s.milestones_done) || 0;
+      const computedProgress = milestones > 0 ? Math.round((milestones_done / milestones) * 100) : Number(s.progress) || 0;
+      return { ...s, progress: computedProgress };
+    });
 
     // 8. Funding requested versus approved ---------------------------------
     const fundingBySource = db
@@ -180,10 +200,10 @@ analyticsRouter.get(
     const fundingApps = db
       .prepare(
         `SELECT COUNT(*) AS total,
-                SUM(CASE WHEN status='APPROVED' THEN 1 ELSE 0 END) AS approved,
+                SUM(CASE WHEN status='APPROVED' OR status='RECEIVED' OR status='PARTIALLY_RECEIVED' THEN 1 ELSE 0 END) AS approved,
                 SUM(CASE WHEN status='REJECTED' THEN 1 ELSE 0 END) AS rejected,
                 SUM(CASE WHEN status IN ('REQUESTED','SUBMITTED') THEN 1 ELSE 0 END) AS open
-           FROM funding_applications`,
+           FROM funding_records`,
       )
       .get() as any;
 
